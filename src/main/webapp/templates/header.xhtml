@@ -8,7 +8,23 @@
       xmlns:p="http://xmlns.jcp.org/jsf">
 <body>
 <ui:composition>
-    #{res.app_brand}
+    <nav class="navbar navbar-default" role="navigation">
+        <h:form id="nav-form">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <h:link outcome="/index.html" styleClass="navbar-brand" value="#{res.app_brand}"/>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <ul class="nav navbar-nav">
+                <li><h:link outcome="/object/list" styleClass="#{request.servletPath eq 'list' ? 'active' : ''} active" value="#{res.label_menu_object_list}"/></li>
+                <li><h:link outcome="/object/add" styleClass="#{request.servletPath eq 'add' ? 'active' : ''} active" value="#{res.label_menu_object_add}"/></li>
+            </ul>
+            </div>
+        <!--#{res.app_brand}-->
+        </h:form>
+    </nav>
 </ui:composition>
 </body>
 </html>

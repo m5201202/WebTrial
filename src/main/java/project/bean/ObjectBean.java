@@ -11,7 +11,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class DisplayBean implements Serializable {
+public class ObjectBean implements Serializable {
         @EJB
         private ObjectService objectService;
 
