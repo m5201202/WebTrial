@@ -9,11 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class UserRepository extends AbstractService<UserEntity> {
+public class UserService extends AbstractService<UserEntity> {
     @PersistenceContext(name = "Webtrial-persistence-unit")
     private EntityManager entityManager;
 
-    public UserRepository() {
+    public UserService() {
         super(UserEntity.class);
     }
 

@@ -6,14 +6,14 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class UserService implements Serializable {
+public class UserResource implements Serializable {
     private String id;
     private String loginName;
     private String familyName;
     private String givenName;
     private String sessionId;
 
-    public UserService() {
+    public UserResource() {
     }
 
     public String getId() {

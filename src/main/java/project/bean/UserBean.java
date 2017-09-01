@@ -1,7 +1,7 @@
 package project.bean;
 
 import project.model.UserEntity;
-import project.service.UserRepository;
+import project.service.UserService;
 
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -13,9 +13,9 @@ import java.util.List;
 @ViewScoped
 public class UserBean implements Serializable {
     @EJB
-    private UserRepository userRepository;
+    private UserService userService;
 
     public List<UserEntity> getUserList() {
-        return userRepository.findAll();
+        return userService.findAll();
     }
 }
