@@ -1,13 +1,53 @@
 package project.service;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class AbstractService<T> {
     private Class<T> entityClass;
+    @PersistenceContext
+    protected EntityManager entityManager;
+    protected CriteriaBuilder baseBuilder;
+    protected CriteriaQuery<T> baseQuery;
+    protected Root<T> baseModel;
+    protected Logger logger;
 
     public AbstractService(Class<T> entityClass){
         this.entityClass = entityClass;
+    }
+
+    @PostConstruct
+    public void init() {
+        baseBuilder = entityManager.getCriteriaBuilder();
+        resetBaseQuery();
+        logger = Logger.getLogger(this.getClass().getName());
+        logger.addHandler(new ConsoleHandler());
+        logger.setLevel(Level.ALL);
+    }
+
+    protected void resetBaseQuery() {
+        baseQuery = baseBuilder.createQuery(entityClass);
+        baseModel = baseQuery.from(entityClass);
+    }
+
+    protected Query select() {
+        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
+        cq.select(cq.from(entityClass));
+        return entityManager.createQuery(cq);
+    }
+
+    protected CriteriaQuery criteriaQuery() {
+        CriteriaQuery<T> cq = entityManager.getCriteriaBuilder().createQuery(entityClass);
+        return cq.select(cq.from(entityClass));
     }
 
     protected abstract EntityManager getEntityManager();
